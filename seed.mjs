@@ -1,12 +1,19 @@
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 
-// Don't pass any arguments here; Prisma 7 will read the .env file
-const prisma = new PrismaClient();
+// Prisma 7 requires explicit configuration in the constructor
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: 'file:./dev.db',
+    },
+  },
+});
 
 async function main() {
   console.log('🌱 Starting to seed Artsyycharmz products...');
   
+  // This clears old data to prevent errors if you run it twice
   await prisma.product.deleteMany({});
 
   await prisma.product.createMany({
