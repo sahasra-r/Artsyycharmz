@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  background: var(--soft-cream);
+  border-bottom: 1px solid var(--primary-pink);
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--dark-rose);
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.iconLink {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: var(--text-main);
+}
