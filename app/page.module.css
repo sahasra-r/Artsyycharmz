@@ -38,3 +38,51 @@
   text-decoration: none;
   font-weight: bold;
 }
+
+.categoriesSection {
+  margin-top: 5rem;
+}
+
+.categoriesSection h2 {
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+.categoryGrid {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.categoryCard {
+  text-decoration: none;
+  color: var(--text-main);
+  transition: transform 0.3s ease;
+}
+
+.categoryCard:hover {
+  transform: translateY(-10px);
+}
+
+.categoryCircle {
+  width: 150px;
+  height: 150px;
+  background: white;
+  border: 1px solid var(--primary-pink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.emoji {
+  font-size: 3rem;
+}
+
+.categoryCard p {
+  font-weight: 600;
+  font-family: var(--font-serif);
+}

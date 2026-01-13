@@ -14,6 +14,20 @@ export default function Home() {
       </section>
 
       {/* We will add Category Circles here next! */}
+
+      <section className={styles.categoriesSection}>
+        <h2>Shop by Category</h2>
+        <div className={styles.categoryGrid}>
+          {categories.map((cat) => (
+            <Link href={`/category/${cat.slug}`} key={cat.slug} className={styles.categoryCard}>
+              <div className={styles.categoryCircle}>
+                <span className={styles.emoji}>{cat.image}</span>
+              </div>
+              <p>{cat.name}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
