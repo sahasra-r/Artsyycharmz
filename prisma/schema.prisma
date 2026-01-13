@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  image       String   
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  items     String   
+  total     Float
+  status    String   @default("Pending")
+  createdAt DateTime @default(now())
+}
