@@ -1,9 +1,13 @@
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 
-// Prisma 7 needs the connection details passed in here
+// In Prisma 7, the connection URL must be inside a datasources object
 const prisma = new PrismaClient({
-  datasourceUrl: 'file:./dev.db',
+  datasources: {
+    db: {
+      url: 'file:./dev.db',
+    },
+  },
 });
 
 async function main() {
@@ -35,6 +39,13 @@ async function main() {
         image: 'https://placehold.co/400x400?text=Flower+Pot',
         category: 'flower-pots',
       },
+      {
+        name: 'Luxury Gift Hamper',
+        description: 'A curated set of charms and flowers.',
+        price: 1299.0,
+        image: 'https://placehold.co/400x400?text=Gift+Hamper',
+        category: 'gift-hampers',
+      }
     ],
   });
   
