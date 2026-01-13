@@ -1,17 +1,12 @@
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 
-// Prisma 7 explicit initialization for SQLite
-const prisma = new PrismaClient({
-  datasourceUrl: 'file:./dev.db',
-});
+// We leave this empty so it doesn't trigger "Unknown property" errors
+const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Artsyycharmz: Starting database seed...');
-  
-  // Clean up to prevent unique constraint errors
+  console.log('🌱 Artsyycharmz: Attempting to seed...');
   await prisma.product.deleteMany({});
-
   await prisma.product.createMany({
     data: [
       {
@@ -27,25 +22,12 @@ async function main() {
         price: 199.0,
         image: 'https://placehold.co/400x400?text=Daisy+Keychain',
         category: 'keychains',
-      },
-      {
-        name: 'Mini Succulent Pot',
-        description: 'Perfect little flower pot for your desk.',
-        price: 349.0,
-        image: 'https://placehold.co/400x400?text=Flower+Pot',
-        category: 'flower-pots',
       }
     ],
   });
-  
-  console.log('✅ Success! Your Artsy products are now in the database! 💐');
+  console.log('✅ Success! Database seeded! 💐');
 }
 
 main()
-  .catch((e) => {
-    console.error('❌ Seeding failed:', e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .catch((e) => { console.error('❌ Seeding failed:', e); process.exit(1); })
+  .finally(async () => { await prisma.$disconnect(); });
