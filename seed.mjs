@@ -1,10 +1,15 @@
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 
-const prisma = new PrismaClient();
+// Prisma 7 needs the connection details passed in here
+const prisma = new PrismaClient({
+  datasourceUrl: 'file:./dev.db',
+});
 
 async function main() {
-  // This clears old data so you don't get duplicates
+  console.log('Starting seed...');
+  
+  // Clear existing products to avoid duplicates
   await prisma.product.deleteMany({});
 
   await prisma.product.createMany({
@@ -32,9 +37,15 @@ async function main() {
       },
     ],
   });
+  
   console.log('Database seeded with Artsy products! 💐');
 }
 
 main()
-  .catch((e) => console.error(e))
-  .finally(async () => await prisma.$disconnect());
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
