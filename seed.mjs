@@ -1,19 +1,12 @@
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 
-// In Prisma 7, the connection URL must be inside a datasources object
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'file:./dev.db',
-    },
-  },
-});
+// Don't pass any arguments here; Prisma 7 will read the .env file
+const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Starting seed...');
+  console.log('🌱 Starting to seed Artsyycharmz products...');
   
-  // Clear existing products to avoid duplicates
   await prisma.product.deleteMany({});
 
   await prisma.product.createMany({
@@ -38,23 +31,16 @@ async function main() {
         price: 349.0,
         image: 'https://placehold.co/400x400?text=Flower+Pot',
         category: 'flower-pots',
-      },
-      {
-        name: 'Luxury Gift Hamper',
-        description: 'A curated set of charms and flowers.',
-        price: 1299.0,
-        image: 'https://placehold.co/400x400?text=Gift+Hamper',
-        category: 'gift-hampers',
       }
     ],
   });
   
-  console.log('Database seeded with Artsy products! 💐');
+  console.log('✅ Success! Database seeded! 💐');
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error('❌ Error during seeding:', e);
     process.exit(1);
   })
   .finally(async () => {
