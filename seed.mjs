@@ -1,13 +1,15 @@
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 
-// Prisma 7 wants the constructor to be EMPTY 
-// It will look for the DATABASE_URL environment variable instead
-const prisma = new PrismaClient();
+// Prisma 7 explicit initialization for SQLite
+const prisma = new PrismaClient({
+  datasourceUrl: 'file:./dev.db',
+});
 
 async function main() {
-  console.log('🌱 Starting to seed Artsyycharmz products...');
+  console.log('🌱 Artsyycharmz: Starting database seed...');
   
+  // Clean up to prevent unique constraint errors
   await prisma.product.deleteMany({});
 
   await prisma.product.createMany({
@@ -36,12 +38,12 @@ async function main() {
     ],
   });
   
-  console.log('✅ Success! Database seeded! 💐');
+  console.log('✅ Success! Your Artsy products are now in the database! 💐');
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Error during seeding:', e);
+    console.error('❌ Seeding failed:', e);
     process.exit(1);
   })
   .finally(async () => {
