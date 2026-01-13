@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Artsyycharmz",
-  description: "E-commerce site for handcrafted charms, bouquets, and gifts.",
+  description: "Handcrafted charms, bouquets, and gifts.",
 };
 
 export default function RootLayout({
