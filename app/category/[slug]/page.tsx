@@ -1,14 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma'; // 1. Added this import
 import styles from '../../page.module.css';
 
-// Fixed: Explicitly passing the database URL to satisfy Prisma 7 requirements
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'file:./dev.db',
-    },
-  },
-});
+// 2. DELETED: The old "const prisma = new PrismaClient({...})" block is gone
 
 export default async function CategoryPage({ 
   params 
@@ -18,6 +11,7 @@ export default async function CategoryPage({
   const { slug } = await params;
 
   // 1. Fetch products from the database that match this category
+  // This now uses the shared client from your /lib folder
   const products = await prisma.product.findMany({
     where: { category: slug }
   });
