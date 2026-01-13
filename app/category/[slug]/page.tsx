@@ -1,8 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 import styles from '../../page.module.css';
 
-// Initialize the database connection
-const prisma = new PrismaClient();
+// Fixed: Explicitly passing the database URL to satisfy Prisma 7 requirements
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: 'file:./dev.db',
+    },
+  },
+});
 
 export default async function CategoryPage({ 
   params 
